@@ -3,11 +3,12 @@ from app import db
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), index=True, unique=True)
+    vorname = db.Column(db.String(64), index=True)
+    nachname = db.Column(db.String(64), index=True)
     personalnummer = db.Column(db.Integer, index=True, unique=True)
 
     def __repr__(self):
-        return f"User {self.username}"
+        return f"User {self.vorname} {self.nachname} Personalnummer{self.personalnummer}"
 
 class Buchungen(db.Model):
     id = db.Column(db.Integer, primary_key=True)
