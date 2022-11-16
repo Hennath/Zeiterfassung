@@ -11,3 +11,4 @@ class UserForm(FlaskForm):
     nachname = StringField('Nachname', validators=[DataRequired()])
     user_code = StringField('Personalnummer', validators=[DataRequired()])
     submit = SubmitField('Anlegen')
+    

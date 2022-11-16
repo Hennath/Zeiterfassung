@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect
 
 from app import app, db
 from app.forms import CodeForm, UserForm
-from app.models import User
+from app.models import User, Buchungen
 
 
 @app.route('/')
@@ -15,6 +15,10 @@ def kommen():
     form = CodeForm()
     if form.validate_on_submit():
         flash(f"{form.user_code.data}")
+        u = User.query.filter(User.personalnummer == form.user_code.data).first()
+        b = Buchungen(user_id=u.id)
+        db.session.add(b)
+        db.session.commit()
         return redirect('/kommen')
     return render_template('kommen.html', form=form)
 
