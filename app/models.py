@@ -6,6 +6,11 @@ class User(db.Model):
     vorname = db.Column(db.String(64), index=True)
     nachname = db.Column(db.String(64), index=True)
     personalnummer = db.Column(db.Integer, index=True, unique=True)
+    anwesend = db.Column(db.Boolean, default=False)
+
+    def kommen(self):
+        if not self.anwesend:
+            self.anwesend = True
 
     def __repr__(self):
         return f"User {self.vorname} {self.nachname} Personalnummer{self.personalnummer}"

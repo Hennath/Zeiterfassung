@@ -11,6 +11,7 @@ for user in users:
     print("Vorname: ", user.vorname)
     print("Nachname: ", user.nachname)
     print("Personalnummer: ", user.personalnummer)
+    print("Anwesend:", user.anwesend)
 
 buchungen = Buchungen.query.all()
 
