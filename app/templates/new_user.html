@@ -1,8 +1,15 @@
 {% extends "base.html" %}
+{% from 'bootstrap5/form.html' import render_form %}
 
 {% block content %}
     <h1>Neuen Benutzer anlegen</h1>
-    <form action="" method="post" novalidate>
+
+    <div class="row">
+        <div class="col-md-4">
+            {{ render_form(form) }}
+        </div>
+    </div>
+    <!-- <form action="" method="post" novalidate>
     {{ form.hidden_tag() }}
     <p>
         {{ form.vorname.label }} <br>
@@ -27,5 +34,5 @@
     </p>
     <p>{{ form.submit }}</p>
 
-    </form>
+    </form> -->
 {% endblock %}
