@@ -1,6 +1,6 @@
-<!-- {% extends "base.html" %}
+{% extends "base.html" %}
 
-{% block content %}
+<!-- {sfggs% block content %}
     <h1>Welcome!</h1>
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
@@ -11,18 +11,26 @@
     <p>{{ form.submit }}</p>
 
     </form>
-{% endblock %} -->
-
-
-{% extends "bootstrap/base.html" %}
-{% block title %}This is an example page{% endblock %}
-
-{% block navbar %}
-<div class="navbar navbar-fixed-top">
-  <!-- ... -->
-</div>
-{% endblock %}
+{sdfg% endblock %} -->
 
 {% block content %}
-  <h1>Hello, Bootstrap</h1>
+    <div class="container">
+        <h1>BBS Brinkstraße</h1>
+        <h2>Anwesenheitssystem</h2>
+        <!-- Bootstrap Button Classes -->
+        <div class="one">
+            <button type="button"
+                    class="btn btn-primary btn-lg">
+                Kommen</button>
+            <button type="button"
+                    class="btn btn-outline-secondary btn-lg">
+                Gehen</button>
+        </div>
+        <div class="two">
+            <a href="{{ url_for('kommen') }}", class="btn btn-primary btn-lg">Kommen</a>
+            <button type="submit" value="{{ url_for('kommen') }}"
+                    class="btn btn-primary btn-lg">
+                Kommen</button>
+        </div>
+    </div>
 {% endblock %}

@@ -8,7 +8,7 @@ from app.models import User, Buchungen
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('base.html')
+    return render_template('index.html')
 
 @app.route('/kommen', methods=['GET', 'POST'])
 def kommen():
@@ -18,10 +18,10 @@ def kommen():
         u = User.query.filter(User.personalnummer == form.user_code.data).first()
         if not u.anwesend:
             u.anwesend = True
-            b = Buchungen(user_id=u.id)
+            b = Buchungen(user_id=u.id, kommen=True)
             db.session.add(b)
             db.session.commit()
-            flash(f"{u.vorname} {u.nachname} Eingestempelt um {b.kommen}")
+            flash(f"{u.vorname} {u.nachname} Eingestempelt um {b.timestamp}")
             return redirect('/index')
         flash(f"Benutzer ist bereits eingestempelt")
         return redirect('/kommen')
@@ -38,7 +38,7 @@ def gehen():
             b = Buchungen(user_id=u.id)
             db.session.add(b)
             db.session.commit()
-            flash(f"{u.vorname} {u.nachname} Ausgestempelt um {b.kommen}")
+            flash(f"{u.vorname} {u.nachname} Ausgestempelt um {b.timestamp}")
             return redirect('/index')
         flash(f"Benutzer ist nicht eingestempelt")
         return redirect('/gehen')
