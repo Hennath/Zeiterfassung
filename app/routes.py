@@ -16,15 +16,17 @@ def kommen():
     if form.validate_on_submit():
         flash(f"{form.user_code.data}")
         u = User.query.filter(User.personalnummer == form.user_code.data).first()
-        if not u.anwesend:
-            u.anwesend = True
-            b = Buchungen(user_id=u.id, kommen=True)
-            db.session.add(b)
-            db.session.commit()
-            flash(f"{u.vorname} {u.nachname} Eingestempelt um {b.timestamp}")
-            return redirect('/index')
-        flash(f"Benutzer ist bereits eingestempelt")
-        return redirect('/kommen')
+        # if not u.anwesend:
+        #     u.anwesend = True
+        #     b = Buchungen(user_id=u.id, kommen=True)
+        #     db.session.add(b)
+        #     db.session.commit()
+        #     flash(f"{u.vorname} {u.nachname} Eingestempelt um {b.timestamp}")
+        #     return redirect('/index')
+        stempel = u.stempeln("kommen")
+        #flash(f"Benutzer ist bereits eingestempelt")
+        flash(stempel)
+        return redirect('/index')
     return render_template('kommen.html', form=form)
 
 @app.route('/gehen', methods=['GET', 'POST'])
@@ -33,15 +35,18 @@ def gehen():
     if form.validate_on_submit():
         flash(f"{form.user_code.data}")
         u = User.query.filter(User.personalnummer == form.user_code.data).first()
-        if u.anwesend:
-            u.anwesend = False
-            b = Buchungen(user_id=u.id)
-            db.session.add(b)
-            db.session.commit()
-            flash(f"{u.vorname} {u.nachname} Ausgestempelt um {b.timestamp}")
-            return redirect('/index')
-        flash(f"Benutzer ist nicht eingestempelt")
-        return redirect('/gehen')
+        # if u.anwesend:
+        #     u.anwesend = False
+        #     b = Buchungen(user_id=u.id)
+        #     db.session.add(b)
+        #     db.session.commit()
+        #     flash(f"{u.vorname} {u.nachname} Ausgestempelt um {b.timestamp}")
+        #     return redirect('/index')
+        # flash(f"Benutzer ist nicht eingestempelt")
+        # return redirect('/gehen')
+        stempel = u.stempeln("gehen")
+        flash (stempel)
+        return redirect('/index')
     return render_template('gehen.html', form=form)
 
 @app.route('/new_user', methods=['GET', 'POST'])

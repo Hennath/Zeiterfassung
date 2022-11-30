@@ -12,6 +12,26 @@ class User(db.Model):
         if not self.anwesend:
             self.anwesend = True
 
+ 
+
+    def stempeln(self, vorgang):
+        #u = User.query.filter(User.personalnummer == 111111).first()
+        letzte_buchung = Buchungen.query.filter(Buchungen.user_id == self.id).order_by(Buchungen.timestamp.desc()).first()
+        #print(letzte_buchung)
+        #if vorgang == "kommen":
+        if letzte_buchung:
+            if getattr(letzte_buchung, vorgang):
+                #if letzte_buchung.kommen:
+                return f"Fehler: {vorgang} bereits vorhanden!"
+                
+        #b = Buchungen(user_id=u.id, kommen=True)
+        b = Buchungen(user_id=self.id)
+        setattr(b, vorgang, True)
+        db.session.add(b)
+        db.session.commit()
+        return f"{self.vorname} {self.nachname} - {vorgang} um {b.timestamp}"
+    
+
     def __repr__(self):
         return f"User {self.vorname} {self.nachname} Personalnummer{self.personalnummer}"
 
