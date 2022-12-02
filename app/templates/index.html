@@ -19,18 +19,13 @@
         <h2>Anwesenheitssystem</h2>
         <!-- Bootstrap Button Classes -->
         <div class="one">
-            <button type="button"
-                    class="btn btn-primary btn-lg">
-                Kommen</button>
-            <button type="button"
-                    class="btn btn-outline-secondary btn-lg">
-                Gehen</button>
+            <a href="{{ url_for('kommen') }}"><button class="btn btn-success btn-lg" style="height:300px;width:500px">Kommen</button></a>
+            <a href="{{ url_for('gehen') }}"><button class="btn btn-danger btn-lg" style="height:300px;width:500px">Gehen</button></a>
         </div>
         <div class="two">
-            <a href="{{ url_for('kommen') }}", class="btn btn-primary btn-lg">Kommen</a>
-            <button type="submit" value="{{ url_for('kommen') }}"
-                    class="btn btn-primary btn-lg">
-                Kommen</button>
+            <a href="{{ url_for('index') }}"><button class="btn btn-outline-warning btn-lg" style="height:300px;width:500px">Home</button></a>
+            <a href="{{ url_for('new_user') }}"><button class="btn btn-outline-secondary btn-lg" style="height:300px;width:500px">Neuer Nutzer</button></a>
         </div>
     </div>
 {% endblock %}
+

@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Kommen</h1>
-    <form action="" method="post" novalidate>
+    <title>Kommen</title>
+    <h1>BBS Brinkstraße</h1>
+    <h2>Anwesenheitssystem</h2>
+    <h2 style="color: green">Kommen</h2>
+    <form style="text-align: center; margin-top: 100px;"; action="" method="post" novalidate>
         {{ form.hidden_tag() }}
     <p>
         {{ form.user_code.label }} <br>

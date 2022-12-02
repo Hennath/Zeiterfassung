@@ -5,18 +5,21 @@ app_context = app.app_context()
 app_context.push()
 
 
-
 def stempeln(vorgang):
     u = User.query.filter(User.personalnummer == 111111).first()
-    letzte_buchung = Buchungen.query.filter(Buchungen.user_id == u.id).order_by(Buchungen.timestamp.desc()).first()
+    letzte_buchung = (
+        Buchungen.query.filter(Buchungen.user_id == u.id)
+        .order_by(Buchungen.timestamp.desc())
+        .first()
+    )
     print(letzte_buchung)
-    #if vorgang == "kommen":
+    # if vorgang == "kommen":
     if letzte_buchung:
         if getattr(letzte_buchung, vorgang):
-            #if letzte_buchung.kommen:
-            print (f"Fehler: {vorgang} bereits vorhanden!")
-               
-    #b = Buchungen(user_id=u.id, kommen=True)
+            # if letzte_buchung.kommen:
+            print(f"Fehler: {vorgang} bereits vorhanden!")
+
+    # b = Buchungen(user_id=u.id, kommen=True)
     b = Buchungen(user_id=u.id)
     setattr(b, vorgang, True)
     db.session.add(b)
@@ -31,8 +34,6 @@ def stempeln(vorgang):
     #         db.session.commit()
 
 
-
-
 users = User.query.filter(User.personalnummer == 111111).all()
 buchungen = Buchungen.query.filter(Buchungen.id == 1).first()
 
@@ -43,8 +44,8 @@ stempeln("kommen")
 #     print("Personalnummer: ", user.personalnummer)
 #     #print("Anwesend:", user.anwesend)
 
-#buchungen.gehen = True
-#db.session.commit()
+# buchungen.gehen = True
+# db.session.commit()
 
 buchungen2 = Buchungen.query.all()
 
