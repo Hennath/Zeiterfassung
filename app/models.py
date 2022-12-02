@@ -33,6 +33,15 @@ class User(db.Model):
         db.session.add(b)
         db.session.commit()
         return f"{self.vorname} {self.nachname} - {vorgang} um {b.timestamp}"
+    # Needed for grid.js
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'vorname': self.vorname,
+            'nachname': self.nachname,
+            'personalnummer': self.personalnummer,
+            'anwesend': self.anwesend
+        }
 
     def __repr__(self):
         return (

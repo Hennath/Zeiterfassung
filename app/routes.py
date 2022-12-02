@@ -73,3 +73,12 @@ def new_user():
         redirect("new_user.html")
 
     return render_template("new_user.html", form=form)
+
+@app.route("/ajax_table", methods=["GET"])
+def ajax_table():
+    return render_template("ajax_table.html")
+
+# Return data to be rendered in a table
+@app.route("/api/data")
+def data():
+    return {'data': [user.to_dict() for user in User.query]}
