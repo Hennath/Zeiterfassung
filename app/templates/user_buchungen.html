@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+  <h1>Ajax Table</h1>
+  <hr>
+  <div id="table"></div>
+</div>
+<script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+<script>
+  new gridjs.Grid({
+    columns: [
+      { id: 'id', name: 'ID' },
+      { id: 'timestamp', name: 'Timestamp' },
+      { id: 'vorgang', name: 'Vorgang', sort: false }
+    //   { id: 'gehen', name: 'Gehen', sort: false },
+    ],
+    server: {
+      url: '/api/data2',
+      then: results => results.data,
+    },
+    search: {
+      selector: (cell, rowIndex, cellIndex) => [0, 1, 4].includes(cellIndex) ? cell : null,
+    },
+    sort: true,
+    pagination: true,
+  }).render(document.getElementById('table'));
+</script>
+
+{% endblock %}

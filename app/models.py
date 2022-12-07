@@ -7,6 +7,7 @@ class User(db.Model):
     vorname = db.Column(db.String(64), index=True)
     nachname = db.Column(db.String(64), index=True)
     personalnummer = db.Column(db.Integer, index=True, unique=True)
+    buchungen = db.relationship("Buchungen", back_populates="user", lazy=True)
     anwesend = db.Column(db.Boolean, default=False)
 
     def kommen(self):
@@ -43,6 +44,8 @@ class User(db.Model):
             'anwesend': self.anwesend
         }
 
+
+
     def __repr__(self):
         return (
             f"User {self.vorname} {self.nachname} Personalnummer{self.personalnummer}"
@@ -55,6 +58,26 @@ class Buchungen(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     kommen = db.Column(db.Boolean, default=False)
     gehen = db.Column(db.Boolean, default=False)
+    user = db.relationship("User", back_populates="buchungen", lazy=True)
+
+    def to_dict(self):
+        if self.kommen:
+            return {
+                'id': self.id,
+                'timestamp': self.timestamp,
+                'user_id': self.user_id,
+                'vorgang': "kommen",
+                'user': self.user.vorname
+            }
+
+        if self.gehen:
+            return {
+                'id': self.id,
+                'timestamp': self.timestamp,
+                'user_id': self.user_id,
+                'vorgang': "gehen",
+                'user': self.user.vorname
+            }
 
     def __repr__(self):
         return f"Gestempelt um: {self.timestamp}"

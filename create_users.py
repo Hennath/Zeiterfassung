@@ -4,19 +4,20 @@ from app.models import Buchungen, User
 app_context = app.app_context()
 app_context.push()
 
+db.drop_all()
 db.create_all()
 db.session.query(User).delete()
 db.session.query(Buchungen).delete()
 
 
-for i in range(1, 6):
+for i in range(1, 7):
     u = User(
         vorname=f"user{i}", nachname=f"Fluser{i}", personalnummer=f"{i}{i}{i}{i}{i}{i}"
     )
     db.session.add(u)
 
-for i in range(1, 2):
-    b = Buchungen(user_id=i)
+for i in range(1, 6):
+    b = Buchungen(user_id=1, kommen=True)
     db.session.add(b)
 
 db.session.commit()

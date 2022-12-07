@@ -21,5 +21,8 @@ for b in buchungen:
     print("ID: ", b.id)
     print("Timestamp: ", b.timestamp)
     print("User ID:", b.user_id)
+    print("User: ", b.user)
     print("Kommen: ", b.kommen)
     print("Gehen: ", b.gehen)
+
+
