@@ -7,7 +7,6 @@ app_context = app.app_context()
 app_context.push()
 
 
-
 # u = User.query.first()
 # print(u)
 
@@ -17,10 +16,10 @@ app_context.push()
 
 # print(b[0].timestamp-b[1].timestamp)
 
-#user = User.query.get(1)
+# user = User.query.get(1)
 buchungen = User.query.get(1).buchungen
 # #print(user)
 for b in buchungen:
-     print (b.to_dict())
+    print(b.to_dict())
 
 print(buchungen.to_dict() for buchungen in User.query.get(1).buchungen)

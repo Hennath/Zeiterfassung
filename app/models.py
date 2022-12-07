@@ -34,17 +34,16 @@ class User(db.Model):
         db.session.add(b)
         db.session.commit()
         return f"{self.vorname} {self.nachname} - {vorgang} um {b.timestamp}"
+
     # Needed for grid.js
     def to_dict(self):
         return {
-            'id': self.id,
-            'vorname': self.vorname,
-            'nachname': self.nachname,
-            'personalnummer': self.personalnummer,
-            'anwesend': self.anwesend
+            "id": self.id,
+            "vorname": self.vorname,
+            "nachname": self.nachname,
+            "personalnummer": self.personalnummer,
+            "anwesend": self.anwesend,
         }
-
-
 
     def __repr__(self):
         return (
@@ -63,20 +62,20 @@ class Buchungen(db.Model):
     def to_dict(self):
         if self.kommen:
             return {
-                'id': self.id,
-                'timestamp': self.timestamp,
-                'user_id': self.user_id,
-                'vorgang': "kommen",
-                'user': self.user.vorname
+                "id": self.id,
+                "timestamp": self.timestamp,
+                "user_id": self.user_id,
+                "vorgang": "kommen",
+                "user": self.user.vorname,
             }
 
         if self.gehen:
             return {
-                'id': self.id,
-                'timestamp': self.timestamp,
-                'user_id': self.user_id,
-                'vorgang': "gehen",
-                'user': self.user.vorname
+                "id": self.id,
+                "timestamp": self.timestamp,
+                "user_id": self.user_id,
+                "vorgang": "gehen",
+                "user": self.user.vorname,
             }
 
     def __repr__(self):
