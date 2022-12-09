@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Gehen</h1>
+<h1>BBS Brinkstraße</h1>
+<h2>Anwesenheitssystem</h2>
+<h2 style="color: red">Gehen</h2>
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
     <p>
@@ -14,4 +16,8 @@
     <p>{{ form.submit }}</p>
 
     </form>
+
+    <div class="two">
+        <a href="{{ url_for('index') }}"><button class="btn btn-dark btn-lg" style="height:300px;width:500px">Back</button></a>
+    </div>
 {% endblock %}

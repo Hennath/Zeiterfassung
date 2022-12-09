@@ -2,7 +2,9 @@
 
 {% block content %}
 <div>
-  <h1>Ajax Table</h1>
+  <h1>BBS Brinkstraße</h1>
+  <h2>Anwesenheitssystem</h2>
+  <h2 style="color: yellow">Buchungen</h2>
   <hr>
   <div id="table"></div>
 </div>
@@ -26,5 +28,9 @@
     pagination: true,
   }).render(document.getElementById('table'));
 </script>
+
+<div class="two">
+  <a href="{{ url_for('index') }}"><button class="btn btn-dark btn-lg" style="height:300px;width:500px">Back</button></a>
+</div>
 
 {% endblock %}

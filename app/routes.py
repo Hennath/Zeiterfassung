@@ -74,6 +74,7 @@ def new_user():
 
     return render_template("new_user.html", form=form)
 
+
 @app.route("/ajax_table", methods=["GET"])
 def ajax_table():
     return render_template("ajax_table.html")
@@ -83,17 +84,22 @@ def ajax_table():
 def user_data():
     return render_template("user_data.html")
 
+
 @app.route("/user_buchungen", methods=["GET"])
 def user_buchungen():
     return render_template("user_buchungen.html")
 
+
 # Return data to be rendered in a table
 @app.route("/api/data")
 def data():
-    return {'data': [user.to_dict() for user in User.query]}
+    return {"data": [user.to_dict() for user in User.query]}
+
 
 @app.route("/api/data2")
 def data2():
-    result = {'data': [buchungen.to_dict() for buchungen in User.query.get(1).buchungen]}
+    result = {
+        "data": [buchungen.to_dict() for buchungen in User.query.get(1).buchungen]
+    }
     print(result)
     return result

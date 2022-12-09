@@ -24,5 +24,3 @@ for b in buchungen:
     print("User: ", b.user)
     print("Kommen: ", b.kommen)
     print("Gehen: ", b.gehen)
-
-
