@@ -1,9 +1,37 @@
-from flask import render_template, flash, redirect
+from flask import render_template, flash, redirect, current_app, request
 
 from app import app, db
 from app.forms import CodeForm, UserForm
 from app.models import User, Buchungen
+import rfid.read as rfid
+from rfid.mfrc522_custom import CustomMFRC522
+from queue import Queue
+from threading import Thread
 
+def on_tag_detected(tag_id):
+    with app.app_context():
+        with app.test_request_context():
+            print("Tag detected: ", tag_id)
+            print("mop")
+            u = User.query.filter(User.personalnummer == tag_id).first()
+            print("2")
+            if not u:
+                flash("Die Personalnummer ist keinem Benutzer zugeordnet!")
+                print("2.5")
+                return redirect("/index")
+            print("3")
+            stempel = u.stempeln("kommen")
+            print("4")
+                # flash(f"Benutzer ist bereits eingestempelt")
+            flash(stempel)
+            print("5")
+            return redirect("/index")
+
+
+reader = CustomMFRC522()
+# listener = Thread(target=reader.listen, args=(on_tag_detected, current_app))
+# listener.start()
+reader.listen(on_tag_detected)
 
 @app.route("/")
 @app.route("/index")
@@ -14,24 +42,63 @@ def index():
 @app.route("/kommen", methods=["GET", "POST"])
 def kommen():
     form = CodeForm()
+    
     if form.validate_on_submit():
         flash(f"{form.user_code.data}")
-        u = User.query.filter(User.personalnummer == form.user_code.data).first()
+        personalnummer = form.user_code.data
+    
+        u = User.query.filter(User.personalnummer == personalnummer).first()
         if not u:
             flash("Die Personalnummer ist keinem Benutzer zugeordnet!")
             return redirect("/index")
-        # if not u.anwesend:
-        #     u.anwesend = True
-        #     b = Buchungen(user_id=u.id, kommen=True)
-        #     db.session.add(b)
-        #     db.session.commit()
-        #     flash(f"{u.vorname} {u.nachname} Eingestempelt um {b.timestamp}")
-        #     return redirect('/index')
+
         stempel = u.stempeln("kommen")
-        # flash(f"Benutzer ist bereits eingestempelt")
+            # flash(f"Benutzer ist bereits eingestempelt")
         flash(stempel)
         return redirect("/index")
+
     return render_template("kommen.html", form=form)
+
+
+
+
+# def kommen():
+#     form = CodeForm()
+#     personalnummer = None
+#     if form.validate_on_submit():
+#         flash(f"{form.user_code.data}")
+#         personalnummer = form.user_code.data
+#         print("1")
+#     else:
+#         # Create a queue to pass the value returned by rfid.read() to the main thread
+#         queue = Queue()
+#         print("2")
+#         # Create a new thread to run the rfid.read() function in the background
+#         thread = Thread(target=rfid.read, args=(queue,))
+#         print("3")
+#         thread.start()
+#         print("3.5")
+#         # Get the value from the queue
+#         print(f"Empty?: {queue.empty()}")
+#         if not queue.empty():
+#             print(f"Queue: {queue.get()}")
+#             personalnummer = queue.get()
+#             print("4")
+#     if personalnummer:   
+#         u = User.query.filter(User.personalnummer == personalnummer).first()
+#         print("5")
+#         if not u:
+#             flash("Die Personalnummer ist keinem Benutzer zugeordnet!")
+#             return redirect("/index")
+
+#         stempel = u.stempeln("kommen")
+#             # flash(f"Benutzer ist bereits eingestempelt")
+#         flash(stempel)
+#         return redirect("/index")
+
+#     return render_template("kommen.html", form=form)
+
+
 
 
 @app.route("/gehen", methods=["GET", "POST"])

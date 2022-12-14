@@ -12,12 +12,14 @@ from mfrc522 import SimpleMFRC522
 #         GPIO.cleanup()
 
 
-def read():
+def read(queue=None):
     reader = SimpleMFRC522()
     try:
         id, text = reader.read()
         print(id)
         print(text)
+        if queue:
+            queue.put(id)
         return id
     finally:
         GPIO.cleanup()
