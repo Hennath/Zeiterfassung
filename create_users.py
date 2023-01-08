@@ -10,6 +10,7 @@ db.session.query(User).delete()
 db.session.query(Buchungen).delete()
 
 
+
 for i in range(1, 4):
     u = User(
         vorname=f"user{i}", nachname=f"Fluser{i}", personalnummer=f"{i}{i}{i}{i}{i}{i}"

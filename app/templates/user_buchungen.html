@@ -18,7 +18,7 @@
     //   { id: 'gehen', name: 'Gehen', sort: false },
     ],
     server: {
-      url: '/api/data2',
+      url: '/api/data?query=' + {{ user_id }},
       then: results => results.data,
     },
     search: {
