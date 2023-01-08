@@ -21,5 +21,12 @@ buchungen = User.query.get(1).buchungen
 # #print(user)
 for b in buchungen:
     print(b.to_dict())
+<<<<<<< HEAD
 
 print(buchungen.to_dict() for buchungen in User.query.get(1).buchungen)
+=======
+
+print(buchungen.to_dict() for buchungen in User.query.get(1).buchungen)
+
+mark.flippa()
+>>>>>>> test

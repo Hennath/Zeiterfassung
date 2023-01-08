@@ -6,7 +6,7 @@
 {% block content %}
     <h1>BBS Brinkstraße</h1>
     <h2>Anwesenheitssystem</h2>
-    <h2 style="color: red">Gehen</h2>
+    <h2 style="color: yellowgreen">Buchungen</h2>
     <form style="text-align: center; margin-top: 100px;"; action="" method="post" novalidate>
         {{ form.hidden_tag() }}
     <p>
@@ -20,7 +20,7 @@
     </form>
     <div class="two">
         <a href="{{ url_for('index') }}"><button class="btn btn-dark btn-lg" style="height:300px;width:500px">Back</button></a>
-        <a href="{{ url_for('gehen_stempeln') }}"><button class="btn btn-dark btn-lg" style="height:300px;width:500px" onclick="displayMessage('Bitte RFID Karte an den Sensor halten')">RFID</button></a>
+        <a href="{{ url_for('buchungen_rfid') }}"><button class="btn btn-dark btn-lg" style="height:300px;width:500px" onclick="displayMessage('Bitte RFID Karte an den Sensor halten')">RFID</button></a>
     </div>
 
     <button id="button">Click me</button>

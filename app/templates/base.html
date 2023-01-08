@@ -8,7 +8,7 @@
         "sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
             crossorigin="anonymous">
         <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
-        <title>Anwesenheitssystem</title>
+        <title></title>
         <!-- Custom CSS -->
         <style>
             h1 {
@@ -30,6 +30,25 @@
             button {
                 margin-top: 10px;
             }
+            #message {
+                display: none;
+                text-align: center;
+                width: 50%;
+                margin: 0 auto;
+                position: absolute;  /* position the element absolutely on the page */
+                top: 27%;  /* position the top of the element at the center of the screen */
+                left: 50%;  /* position the left edge of the element at the center of the screen */
+                transform: translate(-50%, -50%);  /* offset the element by half of its width and height */
+
+                background-color: lightblue;
+                color: white;
+                font-size: 32px;
+                font-family: sans-serif;
+                padding: 20px;
+                border: 4px solid blue;
+                box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+                z-index: 1;  /* set the z-index of the element to 1 to make it appear above other elements */
+            }
         </style>
     </head>
     <body>
@@ -42,6 +61,10 @@
             <a href="{{ url_for('gehen') }}">Gehen</a>
             
             <a href="{{ url_for('new_user') }}">New User</a>
+
+            <a href="{{ url_for('user_buchungen') }}">Buchungen</a>
+
+            <a href="{{ url_for('kommen_stempeln') }}">Buchungen</a>
             
         </div>
         <hr>
@@ -72,6 +95,8 @@
 		integrity=
 "sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 		crossorigin="anonymous"></script>
+    <script src="/static/javascript.js"></script>
+
     </body>
 </html>
 
@@ -108,6 +133,7 @@
                 margin-top: 10px;
                 text-align: center;
             }
+            
         </style>
     </head>
 <body>
@@ -133,8 +159,13 @@
 			<button type="button"
 					class="btn btn-warning btn-lg">
 				Login</button>
+            <button type="button"
+                class="btn btn-dark btn-lg">
+                Back</button>    
 		</div>
 	</div>
+    <div id="message"></div>
+    
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src=
