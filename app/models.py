@@ -7,30 +7,30 @@ class User(db.Model):
     vorname = db.Column(db.String(64), index=True)
     nachname = db.Column(db.String(64), index=True)
     personalnummer = db.Column(db.Integer, index=True, unique=True)
+    # Relationship between User and Buchungen
     buchungen = db.relationship("Buchungen", back_populates="user", lazy=True)
-    anwesend = db.Column(db.Boolean, default=False)
+    
 
-    def kommen(self):
-        if not self.anwesend:
-            self.anwesend = True
-
+    
+    # Stamp function. vorgang argument: either stamp in or out
     def stempeln(self, vorgang):
-        # u = User.query.filter(User.personalnummer == 111111).first()
+        # Check for last entry for this user
         letzte_buchung = (
             Buchungen.query.filter(Buchungen.user_id == self.id)
             .order_by(Buchungen.timestamp.desc())
             .first()
         )
-        # print(letzte_buchung)
-        # if vorgang == "kommen":
+        # Check if user's last entry was stampig in or out
         if letzte_buchung:
             if getattr(letzte_buchung, vorgang):
-                # if letzte_buchung.kommen:
+                # Error if user was already stamped in/out
                 return f"Fehler: {vorgang} bereits vorhanden!"
 
-        # b = Buchungen(user_id=u.id, kommen=True)
+        # Create Buchungen object for this entry
         b = Buchungen(user_id=self.id)
+        # Set vorgang attribute in Buchungen to True
         setattr(b, vorgang, True)
+        # Commit entry to database
         db.session.add(b)
         db.session.commit()
         return f"{self.vorname} {self.nachname} - {vorgang} um {b.timestamp}"
@@ -42,7 +42,6 @@ class User(db.Model):
             "vorname": self.vorname,
             "nachname": self.nachname,
             "personalnummer": self.personalnummer,
-            "anwesend": self.anwesend,
         }
 
     def __repr__(self):
@@ -57,6 +56,7 @@ class Buchungen(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     kommen = db.Column(db.Boolean, default=False)
     gehen = db.Column(db.Boolean, default=False)
+    # Relationship between User and Buchungen
     user = db.relationship("User", back_populates="buchungen", lazy=True)
 
     def to_dict(self):

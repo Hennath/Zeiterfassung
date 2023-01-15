@@ -12,10 +12,9 @@
 <script>
   new gridjs.Grid({
     columns: [
-      { id: 'id', name: 'ID' },
+      { id: 'id', name: 'ID', width: '20%' },
       { id: 'timestamp', name: 'Timestamp' },
       { id: 'vorgang', name: 'Vorgang', sort: false }
-    //   { id: 'gehen', name: 'Gehen', sort: false },
     ],
     server: {
       url: '/api/data?query=' + {{ user_id }},

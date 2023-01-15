@@ -6,13 +6,17 @@ from datetime import datetime
 app_context = app.app_context()
 app_context.push()
 
+
+name = input("User name: ")
+last_name = input("User last name: ")
+print("RFID tag please")
 rfid = read.read()
 print("read rfid")
 print(f"{rfid}")
 
 if(rfid):
     u = User(
-            vorname="Meppo", nachname="Meppersen", personalnummer=f"{rfid}"
+            vorname=name, nachname=last_name, personalnummer=f"{rfid}"
         )
     db.session.add(u)
     db.session.commit()

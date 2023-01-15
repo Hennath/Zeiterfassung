@@ -11,14 +11,14 @@ db.session.query(Buchungen).delete()
 
 
 
-for i in range(1, 4):
-    u = User(
-        vorname=f"user{i}", nachname=f"Fluser{i}", personalnummer=f"{i}{i}{i}{i}{i}{i}"
-    )
-    db.session.add(u)
+# for i in range(1, 4):
+#     u = User(
+#         vorname=f"user{i}", nachname=f"Fluser{i}", personalnummer=f"{i}{i}{i}{i}{i}{i}"
+#     )
+#     db.session.add(u)
 
-for i in range(1, 3):
-    b = Buchungen(user_id=1, kommen=True)
-    db.session.add(b)
+# for i in range(1, 3):
+#     b = Buchungen(user_id=1, kommen=True)
+#     db.session.add(b)
 
-db.session.commit()
+# db.session.commit()
